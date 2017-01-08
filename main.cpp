@@ -106,11 +106,17 @@ int main(int argc, char *argv[])
         return 0;
         //<------------------------В будущем предусмотреть вызов настройщика!!!!
     }
+    QStringList list;
+    list << "one" << "two";
+    QStringListModel* model = new QStringListModel();
     for(int i = 0; i < notices.size(); i++){
+            list.push_back(notices[i]->GetName());
             qDebug() << notices[i]->GetName() << notices[i]->GetAuthor() << notices[i]->GetisInFolder() << notices[i]->GetProjectName() << notices[i]->GetDateIncoming();
     }
-    qDebug() << Notice::Getprojects();
-    //MainWindow mw;
+    model->setStringList(list);
+    qDebug() << list;
+    MainWindow mw;
+
     //StartForm s;
     //mw.show();
     return 0;

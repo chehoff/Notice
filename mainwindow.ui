@@ -30,16 +30,6 @@
      <attribute name="title">
       <string>Обзор</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>521</width>
-        <height>371</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
@@ -52,7 +42,7 @@
       <property name="title">
        <string>Фильтр</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -138,6 +128,16 @@
         </item>
        </layout>
       </widget>
+     </widget>
+     <widget class="QListView" name="listView">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>10</y>
+        <width>191</width>
+        <height>291</height>
+       </rect>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
