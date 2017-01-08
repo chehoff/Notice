@@ -46,11 +46,9 @@ int main(int argc, char *argv[])
     QVector<Notice*> notices; //Этот вектор хранит указатели на все экземпляры объекта Notice
     for(int i = 0; i < ListProjects.size(); i++){
         Notice* notice = new Notice(ListProjects[i]);
+        notice->setisInFolder(true);
         notices.push_back(notice);
     }
-//    for(int i = 0; i < notices.size(); i++){
-//        qDebug() << notices[i]->GetName();
-//    }
     //Загружаем данные из файла базы данных внедрения
     QFile FileCSV(PathToXLS);
     if(FileCSV.exists()){
@@ -59,6 +57,47 @@ int main(int argc, char *argv[])
             while(!FileCSV.atEnd()){
                 str = FileCSV.readLine();
                 QStringList nt = str.split("|");
+                bool invec = false;
+                for(int i = 0; i < notices.size();i++){
+                    if (notices[i]->GetName() == nt[0]){//Если перебирая объекты нашли совпадение по имени
+                        //заполняем поля
+                        if(!nt[1].isEmpty()){
+                            notices[i]->setProjectName(nt[1]);
+                        }
+                        if(!nt[2].isEmpty()){
+                            notices[i]->setAutor(nt[2]);
+                        }
+                        if(!nt[6].isEmpty()){
+                            notices[i]->setStatus(nt[6]);
+                        }
+                        if(!nt[3].isEmpty()){
+                            notices[i]->setDateIncoming(nt[3]);
+                        }
+                        notices[i]->setinwork(true);
+                        invec = true;
+                        break;//выходим из цикла
+                    }
+                }
+                if(!invec){
+                    Notice* notice = new Notice(nt[0]);
+                    notice->setisInFolder(false);
+                    //заполняем поля
+                    if(!nt[1].isEmpty()){
+                        notice->setProjectName(nt[1]);
+                    }
+                    if(!nt[2].isEmpty()){
+                        notice->setAutor(nt[2]);
+                    }
+                    if(!nt[6].isEmpty()){
+                        notice->setStatus(nt[6]);
+                    }
+                    if(!nt[3].isEmpty()){
+                        notice->setDateIncoming(nt[3]);
+                    }
+                    notice->setinwork(true);
+                    notices.push_back(notice);
+
+                }
                 qDebug() << nt;
             }
         }
@@ -67,6 +106,10 @@ int main(int argc, char *argv[])
         return 0;
         //<------------------------В будущем предусмотреть вызов настройщика!!!!
     }
+    for(int i = 0; i < notices.size(); i++){
+            qDebug() << notices[i]->GetName() << notices[i]->GetAuthor() << notices[i]->GetisInFolder() << notices[i]->GetProjectName() << notices[i]->GetDateIncoming();
+    }
+    qDebug() << Notice::Getprojects();
     //MainWindow mw;
     //StartForm s;
     //mw.show();
