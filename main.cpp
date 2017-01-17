@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
                     notices.push_back(notice);
 
                 }
-                qDebug() << nt;
+//                qDebug() << nt;
             }
         }
     } else {
@@ -106,19 +106,10 @@ int main(int argc, char *argv[])
         return 0;
         //<------------------------В будущем предусмотреть вызов настройщика!!!!
     }
-    QStringList list;
-    list << "one" << "two";
-    QStringListModel* model = new QStringListModel();
-    for(int i = 0; i < notices.size(); i++){
-            list.push_back(notices[i]->GetName());
-            qDebug() << notices[i]->GetName() << notices[i]->GetAuthor() << notices[i]->GetisInFolder() << notices[i]->GetProjectName() << notices[i]->GetDateIncoming();
-    }
-    model->setStringList(list);
-    qDebug() << list;
-    MainWindow mw;
+    MainWindow mw(notices);
 
     //StartForm s;
-    //mw.show();
-    return 0;
+    mw.show();
+//    return 0;
     return a.exec();
 }
